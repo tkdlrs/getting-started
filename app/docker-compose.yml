@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  app:
+    image: levisanchezusu/getting-started:latest
+    container_name: tasks
+    restart: unless-stopped
+    command: sh -c "yarn install"
+    ports:
+      - 3000:80
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      HOSTNAME: tasks.engrlab.usu.edu
+
+    # Static file hosting
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+
+    networks:
+      - web
+
+    volumes:
+      - static:/usr/share/nginx/html/static 
+
+    labels:
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.frontend.rule=Host:tasks.engrlab.usu.edu;
+      - traefik.docker.network=pm_web
+
+volumes:
+  todo-mysql-data:
+  static:
