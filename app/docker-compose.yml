@@ -20,7 +20,7 @@ services:
     # Static file hosting
   nginx:
     image: nginx:alpine
-    container_name: nginx
+    container_name: tasks_nginx
     restart: unless-stopped
 
     networks:
