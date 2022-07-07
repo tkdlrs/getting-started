@@ -1,5 +1,8 @@
 version: "3.7"
 
+networks:
+  web:
+
 services:
   app:
     image: levisanchezusu/getting-started:latest
